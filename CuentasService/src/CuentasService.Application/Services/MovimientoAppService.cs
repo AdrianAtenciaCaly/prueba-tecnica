@@ -32,7 +32,7 @@ public class MovimientoAppService : IMovimientoAppService
         // F3: si no hay saldo suficiente, Cuenta.RegistrarMovimiento lanza SaldoNoDisponibleException("Saldo no disponible")
         var movimiento = cuenta.RegistrarMovimiento(tipo, Math.Abs(dto.Valor), dto.Fecha ?? DateTime.UtcNow);
 
-        _cuentaRepository.Actualizar(cuenta);
+        await _cuentaRepository.AgregarMovimientoAsync(movimiento, cancellationToken);
         await _cuentaRepository.GuardarCambiosAsync(cancellationToken);
 
         return new MovimientoDto(
