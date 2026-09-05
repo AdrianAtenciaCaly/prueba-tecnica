@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CuentasService.API.Controllers;
 
 /// <summary>
-/// F4: GET /reportes?fecha=2022-01-01,2022-12-31&amp;cliente=CLI001
+/// GET /reportes?fecha=2022-01-01,2022-12-31&amp;cliente=CLI001
 /// El parámetro `fecha` recibe un rango "desde,hasta"; devuelve el estado de cuenta en JSON.
 /// </summary>
 [ApiController]

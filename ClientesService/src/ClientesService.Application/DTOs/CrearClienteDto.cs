@@ -1,6 +1,4 @@
 namespace ClientesService.Application.DTOs;
-
-/// <summary>DTO de entrada para F1 - creación de Cliente.</summary>
 public record CrearClienteDto(
     string ClienteId,
     string Nombre,

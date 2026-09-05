@@ -1,12 +1,5 @@
 namespace ClientesService.Domain.Entities;
 
-/// <summary>
-/// Clase base del dominio. Representa a cualquier persona en el sistema.
-/// Cliente hereda de Persona (requisito del ejercicio).
-/// La validación de invariantes vive aquí (Domain-Driven Design: la entidad se protege a sí misma),
-/// no en capas superiores, para cumplir con el principio de responsabilidad única y evitar
-/// que un dominio pueda existir en un estado inválido.
-/// </summary>
 public abstract class Persona
 {
     public Guid Id { get; protected set; }

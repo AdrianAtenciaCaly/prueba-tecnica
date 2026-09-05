@@ -7,7 +7,7 @@ using CuentasService.Domain.Interfaces;
 
 namespace CuentasService.Application.Services;
 
-/// <summary>F1: casos de uso CRU de Cuenta. Valida contra el read-model de Cliente antes de abrir la cuenta.</summary>
+/// <summary>casos de uso CRUD de Cuenta. Valida contra el read-model de Cliente antes de abrir la cuenta.</summary>
 public class CuentaAppService : ICuentaAppService
 {
     private readonly ICuentaRepository _cuentaRepository;

@@ -2,10 +2,6 @@ using ClientesService.Domain.Exceptions;
 
 namespace ClientesService.Domain.Entities;
 
-/// <summary>
-/// Cliente hereda de Persona (requisito explícito del ejercicio). Agrega ClienteId (clave única de negocio),
-/// contraseña (siempre almacenada como hash, nunca en texto plano) y estado (activo/inactivo).
-/// </summary>
 public class Cliente : Persona
 {
     public string ClienteId { get; private set; } = default!;
@@ -31,11 +27,7 @@ public class Cliente : Persona
         Estado = estado;
     }
 
-    /// <summary>
-    /// Factory method: punto único de creación válida de un Cliente (Factory pattern + encapsulación).
-    /// Recibe la contraseña ya hasheada; el hashing es una preocupación de infraestructura/aplicación, no de dominio.
-    /// </summary>
-    public static Cliente Crear(
+   public static Cliente Crear(
         string clienteId,
         string nombre,
         string genero,

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CuentasService.API.Controllers;
 
-/// <summary>F1 (CRU) + F2/F3 (registro con validación de saldo). Endpoint: /movimientos</summary>
+/// <summary>registro con validación de saldo. Endpoint: /movimientos</summary>
 [ApiController]
 [Route("movimientos")]
 [Produces("application/json")]
@@ -19,7 +19,7 @@ public class MovimientosController : ControllerBase
 
     /// <summary>
     /// Registra un movimiento (depósito o retiro). Si no hay saldo suficiente, responde 400
-    /// con el mensaje "Saldo no disponible" (F3).
+    /// con el mensaje "Saldo no disponible".
     /// </summary>
     [HttpPost]
     [ProducesResponseType(typeof(MovimientoDto), StatusCodes.Status201Created)]

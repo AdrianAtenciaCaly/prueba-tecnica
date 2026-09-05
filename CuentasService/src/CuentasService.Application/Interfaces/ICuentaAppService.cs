@@ -1,8 +1,6 @@
 using CuentasService.Application.DTOs;
 
 namespace CuentasService.Application.Interfaces;
-
-/// <summary>F1: CRU (Crear, Leer, Actualizar) sobre Cuenta — no se pide eliminar en el enunciado.</summary>
 public interface ICuentaAppService
 {
     Task<CuentaDto> CrearAsync(CrearCuentaDto dto, CancellationToken cancellationToken = default);

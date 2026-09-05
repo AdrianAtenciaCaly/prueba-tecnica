@@ -7,7 +7,7 @@ using CuentasService.Domain.Interfaces;
 namespace CuentasService.Application.Services;
 
 /// <summary>
-/// F2/F3: registra un movimiento sobre una cuenta. Toda la lógica de saldo/validación vive en la entidad
+/// registra un movimiento sobre una cuenta. Toda la lógica de saldo/validación vive en la entidad
 /// Cuenta (Domain) — este servicio solo orquesta: carga el agregado, invoca el comportamiento de dominio,
 /// persiste. Así se evita duplicar reglas de negocio entre capas.
 /// </summary>
@@ -29,7 +29,7 @@ public class MovimientoAppService : IMovimientoAppService
             ? t
             : throw new CuentaDomainException($"Tipo de movimiento inválido: '{dto.TipoMovimiento}'. Use 'Deposito' o 'Retiro'.");
 
-        // F3: si no hay saldo suficiente, Cuenta.RegistrarMovimiento lanza SaldoNoDisponibleException("Saldo no disponible")
+        // si no hay saldo suficiente, Cuenta.RegistrarMovimiento lanza SaldoNoDisponibleException("Saldo no disponible")
         var movimiento = cuenta.RegistrarMovimiento(tipo, Math.Abs(dto.Valor), dto.Fecha ?? DateTime.UtcNow);
 
         await _cuentaRepository.AgregarMovimientoAsync(movimiento, cancellationToken);

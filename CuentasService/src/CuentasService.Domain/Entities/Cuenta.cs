@@ -3,10 +3,6 @@ using CuentasService.Domain.Exceptions;
 
 namespace CuentasService.Domain.Entities;
 
-/// <summary>
-/// Entidad Cuenta. Encapsula el saldo y las reglas para modificarlo — ninguna otra clase puede
-/// mutar el saldo directamente, solo a través de los métodos de dominio (protección de invariantes).
-/// </summary>
 public class Cuenta
 {
     public Guid Id { get; private set; }

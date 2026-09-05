@@ -4,11 +4,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ClientesService.Infrastructure.Persistence.Configurations;
 
-/// <summary>
-/// Mapeo de la entidad Cliente (y de su base Persona, mapeada como TPH sobre la misma tabla ya que
-/// en este ejercicio Persona no tiene otras subclases). Se usan los setters privados de la entidad
-/// vía reflexión (comportamiento estándar de EF Core), preservando el encapsulamiento del dominio.
-/// </summary>
 public class ClienteConfiguration : IEntityTypeConfiguration<Cliente>
 {
     public void Configure(EntityTypeBuilder<Cliente> builder)

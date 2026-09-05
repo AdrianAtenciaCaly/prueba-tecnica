@@ -1,6 +1,4 @@
 namespace CuentasService.Application.DTOs;
-
-/// <summary>F4: forma del reporte "Estado de cuenta" devuelto en JSON.</summary>
 public record ReporteEstadoCuentaDto(
     string ClienteId,
     string ClienteNombre,

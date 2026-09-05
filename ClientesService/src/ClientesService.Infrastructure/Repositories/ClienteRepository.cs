@@ -5,11 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClientesService.Infrastructure.Repositories;
 
-/// <summary>
-/// Implementación concreta del patrón Repository (requisito explícito del ejercicio) usando EF Core.
-/// La capa de Aplicación solo conoce IClienteRepository; esta clase es un detalle de infraestructura
-/// intercambiable (por ejemplo, se podría reemplazar por Dapper sin tocar Application/Domain).
-/// </summary>
 public class ClienteRepository : IClienteRepository
 {
     private readonly ClientesDbContext _context;

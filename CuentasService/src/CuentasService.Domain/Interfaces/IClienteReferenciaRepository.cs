@@ -2,7 +2,6 @@ using CuentasService.Domain.Entities;
 
 namespace CuentasService.Domain.Interfaces;
 
-/// <summary>Repositorio del read-model de clientes alimentado por los eventos de integración.</summary>
 public interface IClienteReferenciaRepository
 {
     Task<ClienteReferencia?> ObtenerPorClienteIdAsync(string clienteId, CancellationToken cancellationToken = default);

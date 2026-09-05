@@ -1,11 +1,5 @@
 namespace CuentasService.Domain.Entities;
 
-/// <summary>
-/// Modelo de lectura local ("read model") mantenido dentro de CuentasService, actualizado de forma
-/// asíncrona mediante los eventos de integración que publica ClientesService (ClienteCreado/Actualizado/Eliminado).
-/// Esto es lo que le permite a CuentasService validar la existencia/estado de un cliente al abrir una cuenta
-/// SIN hacer una llamada síncrona HTTP al otro microservicio (patrón de comunicación asíncrona desacoplada).
-/// </summary>
 public class ClienteReferencia
 {
     public string ClienteId { get; private set; } = default!;

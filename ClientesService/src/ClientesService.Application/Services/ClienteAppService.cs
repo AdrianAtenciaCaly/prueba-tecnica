@@ -7,11 +7,6 @@ using Shared.Contracts;
 
 namespace ClientesService.Application.Services;
 
-/// <summary>
-/// Orquesta los casos de uso de Cliente (F1: CRUD completo).
-/// Depende únicamente de abstracciones (IClienteRepository, IEventPublisher, IPasswordHasher) → SOLID (DIP).
-/// Cada método tiene una única responsabilidad clara (SRP).
-/// </summary>
 public class ClienteAppService : IClienteAppService
 {
     private readonly IClienteRepository _clienteRepository;

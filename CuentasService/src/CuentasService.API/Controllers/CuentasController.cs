@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CuentasService.API.Controllers;
 
-/// <summary>F1: CRU (Crear, Leer, Actualizar) sobre Cuenta. Endpoint: /cuentas</summary>
+/// <summary>CRUD (Crear, Leer, Actualizar) sobre Cuenta. Endpoint: /cuentas</summary>
 [ApiController]
 [Route("cuentas")]
 [Produces("application/json")]

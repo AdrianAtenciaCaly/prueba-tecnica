@@ -5,9 +5,7 @@ using CuentasService.Domain.Exceptions;
 namespace CuentasService.API.Middleware;
 
 /// <summary>
-/// Manejo centralizado de excepciones (requisito del ejercicio). F3 en particular exige que al
-/// intentar un movimiento sin saldo se "alerte" con el mensaje "Saldo no disponible": aquí se traduce
-/// SaldoNoDisponibleException a un 400 Bad Request con ese mensaje exacto en el cuerpo de la respuesta.
+/// Manejo centralizado de excepciones
 /// </summary>
 public class ExceptionMiddleware
 {
