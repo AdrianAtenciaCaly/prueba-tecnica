@@ -35,7 +35,10 @@ public class ReportesController : ControllerBase
             });
         }
 
-        var reporte = await _reporteAppService.GenerarEstadoCuentaAsync(cliente, desde, hasta.Date.AddDays(1).AddTicks(-1), cancellationToken);
+        var desdeUtc = DateTime.SpecifyKind(desde, DateTimeKind.Utc);
+        var hastaUtc = DateTime.SpecifyKind(hasta.Date.AddDays(1).AddTicks(-1), DateTimeKind.Utc);
+
+        var reporte = await _reporteAppService.GenerarEstadoCuentaAsync(cliente, desdeUtc, hastaUtc, cancellationToken);
         return Ok(reporte);
     }
 }
