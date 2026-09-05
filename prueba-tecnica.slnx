@@ -1,0 +1,20 @@
+<Solution>
+  <Folder Name="/ClientesService/" />
+  <Folder Name="/ClientesService/src/">
+    <Project Path="ClientesService/src/ClientesService.API/ClientesService.API.csproj" />
+    <Project Path="ClientesService/src/ClientesService.Application/ClientesService.Application.csproj" />
+    <Project Path="ClientesService/src/ClientesService.Domain/ClientesService.Domain.csproj" />
+    <Project Path="ClientesService/src/ClientesService.Infrastructure/ClientesService.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/CuentasService/" />
+  <Folder Name="/CuentasService/src/">
+    <Project Path="CuentasService/src/CuentasService.API/CuentasService.API.csproj" />
+    <Project Path="CuentasService/src/CuentasService.Application/CuentasService.Application.csproj" />
+    <Project Path="CuentasService/src/CuentasService.Domain/CuentasService.Domain.csproj" />
+    <Project Path="CuentasService/src/CuentasService.Infrastructure/CuentasService.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/Shared/" />
+  <Folder Name="/Shared/Contracts/">
+    <Project Path="Shared/Contracts/Shared.Contracts.csproj" />
+  </Folder>
+</Solution>

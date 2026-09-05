@@ -1,0 +1,102 @@
+version: "3.9"
+
+services:
+
+  # ---------------------------------------------------------------------
+  # PostgreSQL: una sola instancia, dos bases de datos (clientes_db / cuentas_db),
+  # inicializadas automáticamente con BaseDatos.sql al primer arranque.
+  # ---------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: prueba-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./BaseDatos.sql:/docker-entrypoint-initdb.d/BaseDatos.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - prueba-net
+
+  # ---------------------------------------------------------------------
+  # RabbitMQ: broker para la comunicación asíncrona entre ClientesService y CuentasService.
+  # ---------------------------------------------------------------------
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: prueba-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"   # protocolo AMQP
+      - "15672:15672" # panel de administración (guest/guest)
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - prueba-net
+
+  # ---------------------------------------------------------------------
+  # Microservicio Cliente/Persona
+  # ---------------------------------------------------------------------
+  clientes-service:
+    build:
+      context: .
+      dockerfile: ClientesService/Dockerfile
+    container_name: clientes-service-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__ClientesDb: "Host=postgres;Port=5432;Database=clientes_db;Username=postgres;Password=postgres"
+      RabbitMq__Host: rabbitmq
+      RabbitMq__Username: guest
+      RabbitMq__Password: guest
+    ports:
+      - "5001:8080"
+    networks:
+      - prueba-net
+
+  # ---------------------------------------------------------------------
+  # Microservicio Cuenta/Movimientos
+  # ---------------------------------------------------------------------
+  cuentas-service:
+    build:
+      context: .
+      dockerfile: CuentasService/Dockerfile
+    container_name: cuentas-service-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__CuentasDb: "Host=postgres;Port=5432;Database=cuentas_db;Username=postgres;Password=postgres"
+      RabbitMq__Host: rabbitmq
+      RabbitMq__Username: guest
+      RabbitMq__Password: guest
+    ports:
+      - "5002:8080"
+    networks:
+      - prueba-net
+
+networks:
+  prueba-net:
+    driver: bridge
+
+volumes:
+  postgres_data:

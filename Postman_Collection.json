@@ -1,0 +1,193 @@
+{
+  "info": {
+    "name": "Prueba Tecnica - Microservicios Clientes y Cuentas",
+    "description": "Colección Postman para validar los endpoints de ClientesService (http://localhost:5001) y CuentasService (http://localhost:5002). Sigue los casos de uso descritos en el enunciado.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "clientesBaseUrl", "value": "http://localhost:5001" },
+    { "key": "cuentasBaseUrl", "value": "http://localhost:5002" },
+    { "key": "clienteIdGuid", "value": "" },
+    { "key": "cuentaIdGuid", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "ClientesService",
+      "item": [
+        {
+          "name": "Crear Cliente (Jose Lema)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const body = pm.response.json();",
+                  "  pm.collectionVariables.set('clienteIdGuid', body.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"clienteId\": \"CLI001\",\n  \"nombre\": \"Jose Lema\",\n  \"genero\": \"Masculino\",\n  \"edad\": 35,\n  \"identificacion\": \"1023456781\",\n  \"direccion\": \"Otavalo sn y principal\",\n  \"telefono\": \"098254785\",\n  \"contrasena\": \"clave123\",\n  \"estado\": true\n}"
+            },
+            "url": { "raw": "{{clientesBaseUrl}}/clientes", "host": ["{{clientesBaseUrl}}"], "path": ["clientes"] }
+          }
+        },
+        {
+          "name": "Obtener todos los Clientes",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{clientesBaseUrl}}/clientes", "host": ["{{clientesBaseUrl}}"], "path": ["clientes"] }
+          }
+        },
+        {
+          "name": "Obtener Cliente por Id",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{clientesBaseUrl}}/clientes/{{clienteIdGuid}}", "host": ["{{clientesBaseUrl}}"], "path": ["clientes", "{{clienteIdGuid}}"] }
+          }
+        },
+        {
+          "name": "Obtener Cliente por ClienteId (negocio)",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{clientesBaseUrl}}/clientes/por-cliente-id/CLI001", "host": ["{{clientesBaseUrl}}"], "path": ["clientes", "por-cliente-id", "CLI001"] }
+          }
+        },
+        {
+          "name": "Actualizar Cliente",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Jose Lema Actualizado\",\n  \"genero\": \"Masculino\",\n  \"edad\": 36,\n  \"direccion\": \"Nueva dirección 123\",\n  \"telefono\": \"098254786\",\n  \"estado\": true\n}"
+            },
+            "url": { "raw": "{{clientesBaseUrl}}/clientes/{{clienteIdGuid}}", "host": ["{{clientesBaseUrl}}"], "path": ["clientes", "{{clienteIdGuid}}"] }
+          }
+        },
+        {
+          "name": "Eliminar Cliente",
+          "request": {
+            "method": "DELETE",
+            "url": { "raw": "{{clientesBaseUrl}}/clientes/{{clienteIdGuid}}", "host": ["{{clientesBaseUrl}}"], "path": ["clientes", "{{clienteIdGuid}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CuentasService",
+      "item": [
+        {
+          "name": "Crear Cuenta (478758 - Ahorros - Jose Lema)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "  const body = pm.response.json();",
+                  "  pm.collectionVariables.set('cuentaIdGuid', body.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroCuenta\": \"478758\",\n  \"tipoCuenta\": \"Ahorros\",\n  \"saldoInicial\": 2000,\n  \"clienteId\": \"CLI001\",\n  \"estado\": true\n}"
+            },
+            "url": { "raw": "{{cuentasBaseUrl}}/cuentas", "host": ["{{cuentasBaseUrl}}"], "path": ["cuentas"] }
+          }
+        },
+        {
+          "name": "Obtener todas las Cuentas",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{cuentasBaseUrl}}/cuentas", "host": ["{{cuentasBaseUrl}}"], "path": ["cuentas"] }
+          }
+        },
+        {
+          "name": "Obtener Cuenta por Id",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{cuentasBaseUrl}}/cuentas/{{cuentaIdGuid}}", "host": ["{{cuentasBaseUrl}}"], "path": ["cuentas", "{{cuentaIdGuid}}"] }
+          }
+        },
+        {
+          "name": "Actualizar Cuenta",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tipoCuenta\": \"Ahorros\",\n  \"estado\": true\n}"
+            },
+            "url": { "raw": "{{cuentasBaseUrl}}/cuentas/{{cuentaIdGuid}}", "host": ["{{cuentasBaseUrl}}"], "path": ["cuentas", "{{cuentaIdGuid}}"] }
+          }
+        },
+        {
+          "name": "Registrar Movimiento - Retiro de 575 (F2)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cuentaId\": \"{{cuentaIdGuid}}\",\n  \"tipoMovimiento\": \"Retiro\",\n  \"valor\": 575\n}"
+            },
+            "url": { "raw": "{{cuentasBaseUrl}}/movimientos", "host": ["{{cuentasBaseUrl}}"], "path": ["movimientos"] }
+          }
+        },
+        {
+          "name": "Registrar Movimiento - Retiro SIN saldo (F3 -> 400 Saldo no disponible)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cuentaId\": \"{{cuentaIdGuid}}\",\n  \"tipoMovimiento\": \"Retiro\",\n  \"valor\": 999999\n}"
+            },
+            "url": { "raw": "{{cuentasBaseUrl}}/movimientos", "host": ["{{cuentasBaseUrl}}"], "path": ["movimientos"] }
+          }
+        },
+        {
+          "name": "Reporte Estado de Cuenta (F4)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{cuentasBaseUrl}}/reportes?fecha=2024-01-01,2026-12-31&cliente=CLI001",
+              "host": ["{{cuentasBaseUrl}}"],
+              "path": ["reportes"],
+              "query": [
+                { "key": "fecha", "value": "2024-01-01,2026-12-31" },
+                { "key": "cliente", "value": "CLI001" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Checks",
+      "item": [
+        {
+          "name": "ClientesService /health",
+          "request": { "method": "GET", "url": "{{clientesBaseUrl}}/health" }
+        },
+        {
+          "name": "CuentasService /health",
+          "request": { "method": "GET", "url": "{{cuentasBaseUrl}}/health" }
+        }
+      ]
+    }
+  ]
+}
